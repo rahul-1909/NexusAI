@@ -27,12 +27,38 @@ static_dir = os.path.join(os.path.dirname(__file__), "static")
 if os.path.exists(static_dir):
     app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
+
+@app.on_event("startup")
+def auto_seed_knowledge_base():
+    """Automatically loads default knowledge base into Qdrant if collection is empty."""
+    try:
+        from app.db.qdrant_client import qdrant_service
+        from app.ingestion.pipeline import ingestion_pipeline
+
+        info = qdrant_service.get_collection_info()
+        points_count = info.get("points_count", 0)
+
+        if points_count == 0:
+            doc_path = os.path.join(os.path.dirname(
+                __file__), "..", "data", "sample_docs", "knowledge_base.txt")
+            if os.path.exists(doc_path):
+                with open(doc_path, "r", encoding="utf-8") as f:
+                    content = f.read()
+                ingestion_pipeline.process_and_ingest(
+                    content, source_name="knowledge_base.txt")
+                print(
+                    "[Startup] Successfully ingested knowledge_base.txt into Qdrant.")
+    except Exception as e:
+        print(f"[Startup Notice] Auto-ingest skipped: {e}")
+
+
 @app.get("/", tags=["Frontend"])
 def serve_frontend():
     index_file = os.path.join(static_dir, "index.html")
     if os.path.exists(index_file):
         return FileResponse(index_file)
     return {"message": "Multi-Agent RAG Engine API is running. Visit /docs for Swagger UI."}
+
 
 @app.get("/health", tags=["Health Check"])
 def health_check():
@@ -43,6 +69,8 @@ def health_check():
         "environment": settings.ENVIRONMENT
     }
 
+
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run("app.main:app", host=settings.API_HOST, port=settings.API_PORT, reload=True)
+    uvicorn.run("app.main:app", host=settings.API_HOST,
+                port=settings.API_PORT, reload=True)
