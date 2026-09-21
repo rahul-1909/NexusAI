@@ -1,0 +1,27 @@
+import pytest
+from app.agents.state import AgentState
+from app.agents.graph import rag_workflow
+from app.agents.router import route_question
+
+def test_router_greeting():
+    route = route_question("Hello, how are you?")
+    assert route == "direct"
+
+def test_router_domain_question():
+    route = route_question("How does LangGraph manage state?")
+    assert route == "vectorstore"
+
+def test_workflow_execution():
+    state: AgentState = {
+        "question": "Hello there!",
+        "documents": [],
+        "rewritten_query": "",
+        "generation": "",
+        "route": "",
+        "retry_count": 0,
+        "is_grounded": False,
+        "trace": []
+    }
+    result = rag_workflow.invoke(state)
+    assert result["generation"] != ""
+    assert len(result["trace"]) > 0

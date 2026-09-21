@@ -1,0 +1,8 @@
+﻿LangGraph Architecture and State Governance:
+LangGraph is a library for building stateful, multi-actor applications with LLMs. By modeling agent workflows as cyclic graphs, LangGraph allows engineers to build loops, dynamic branching, and self-correcting agents. Unlike linear chains, LangGraph uses a centralized AgentState dictionary that is passed between specialized agent nodes. Each node performs an atomic transformation (such as query routing, document filtering, or synthesis) and returns updated state keys.
+
+Qdrant Vector Database and Dense Embeddings:
+Qdrant is a vector search engine designed for high-performance approximate nearest neighbor (ANN) search. It stores vectors alongside structured JSON payloads. When performing semantic search, Qdrant calculates Cosine Distance or Dot Product between the query vector and indexed document embeddings. Qdrant supports payload indexing and filtering, meaning queries can filter by metadata (e.g. source, category, timestamp) simultaneously without degrading retrieval latency.
+
+Mitigating LLM Hallucinations in Production RAG:
+In production RAG systems, hallucination is mitigated through two primary architectural patterns: Corrective RAG (CRAG) and Self-RAG. A Document Relevance Grader agent inspects retrieved document chunks to ensure semantic correlation with the query before passing them to the generator. If chunks are irrelevant, a Query Rewriter transforms the search query. Following response generation, a Hallucination and Fidelity Grader performs a bidirectional check: ensuring every claim in the response is grounded by the retrieved reference text.
