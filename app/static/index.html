@@ -5,6 +5,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>NexusAI — Autonomous Intelligence Copilot</title>
+    <!-- Browser Tab Favicon -->
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'><path d='M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z'/></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Markdown Parser -->
@@ -15,7 +18,7 @@
         .markdown-content h3 {
             font-weight: 700;
             color: #f8fafc;
-            margin-top: 1rem;
+            margin-top: 1.1rem;
             margin-bottom: 0.5rem;
         }
 
@@ -96,9 +99,12 @@
     <header
         class="bg-slate-800/90 backdrop-blur border-b border-slate-700/80 px-6 py-3.5 flex justify-between items-center sticky top-0 z-50">
         <div class="flex items-center space-x-3 cursor-pointer" onclick="newChat()">
+            <!-- Glowing Logo with Crisp AI Sparkle Star SVG -->
             <div
-                class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-blue-500/25">
-                <i class="fa-solid fa-sparkles"></i>
+                class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30">
+                <svg class="w-5 h-5 text-white fill-current" viewBox="0 0 24 24">
+                    <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z" />
+                </svg>
             </div>
             <div>
                 <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
@@ -127,8 +133,10 @@
             <!-- Sleek ChatGPT-style Welcome Hero -->
             <div id="welcome-hero" class="flex flex-col items-center justify-center py-20 text-center space-y-4">
                 <div
-                    class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white text-3xl shadow-xl shadow-blue-500/25">
-                    <i class="fa-solid fa-brain"></i>
+                    class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-xl shadow-blue-500/25">
+                    <svg class="w-8 h-8 text-white fill-current" viewBox="0 0 24 24">
+                        <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z" />
+                    </svg>
                 </div>
                 <h2 class="text-2xl font-bold tracking-tight text-white">What can I help you with today?</h2>
                 <p class="text-sm text-slate-400 max-w-md leading-relaxed">
@@ -166,8 +174,10 @@
             const chat = document.getElementById('chat-box');
             chat.innerHTML = `
                 <div id="welcome-hero" class="flex flex-col items-center justify-center py-20 text-center space-y-4">
-                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white text-3xl shadow-xl shadow-blue-500/25">
-                        <i class="fa-solid fa-brain"></i>
+                    <div class="w-16 h-16 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-xl shadow-blue-500/25">
+                        <svg class="w-8 h-8 text-white fill-current" viewBox="0 0 24 24">
+                            <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z"/>
+                        </svg>
                     </div>
                     <h2 class="text-2xl font-bold tracking-tight text-white">What can I help you with today?</h2>
                     <p class="text-sm text-slate-400 max-w-md leading-relaxed">
@@ -186,7 +196,6 @@
             const q = input.value.trim();
             if (!q) return;
 
-            // Remove welcome hero on first message
             const hero = document.getElementById('welcome-hero');
             if (hero) hero.remove();
 
