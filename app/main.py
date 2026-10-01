@@ -13,27 +13,35 @@ app = FastAPI(
     description="NexusAI: Autonomous Multi-Agent Intelligence Copilot utilizing LangGraph, Qdrant, and FastAPI."
 )
 
-# --- 2. SPEED OPTIMIZATION: GZIP COMPRESSION (Reduces payload sizes by ~80%) ---
+# --- SPEED OPTIMIZATION: GZIP COMPRESSION ---
 app.add_middleware(GZipMiddleware, minimum_size=500)
 
-# --- 1. HTTP SECURITY HEADERS MIDDLEWARE (CSP, Clickjacking, MIME) ---
+# --- STRICT SECURITY HEADERS (HSTS & DEEP CSP ENFORCEMENT) ---
 
 
 @app.middleware("http")
 async def add_security_headers(request: Request, call_next):
     response = await call_next(request)
 
-    # 1. Content Security Policy (XSS Protection)
+    # 1. HTTP Strict Transport Security (HSTS) - 1 Year + Preload
+    response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains; preload"
+
+    # 2. Deep Content-Security-Policy (XSS & Injection Protection)
     response.headers["Content-Security-Policy"] = (
         "default-src 'self'; "
         "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; "
         "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; "
-        "font-src 'self' https://cdnjs.cloudflare.com; "
+        "font-src 'self' https://cdnjs.cloudflare.com data:; "
         "img-src 'self' data: https:; "
         "connect-src 'self'; "
-        "frame-ancestors 'none';"
+        "object-src 'none'; "
+        "base-uri 'self'; "
+        "form-action 'self'; "
+        "frame-ancestors 'none'; "
+        "upgrade-insecure-requests;"
     )
-    # Security & Referrer Policies
+
+    # 3. Referrer, Permissions, Clickjacking & MIME Guards
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
     response.headers["Permissions-Policy"] = "camera=(), microphone=(), geolocation=()"
     response.headers["X-Frame-Options"] = "DENY"
@@ -52,7 +60,7 @@ app.add_middleware(
 
 app.include_router(router, prefix=settings.API_V1_STR)
 
-# Static files directory
+# Static files
 static_dir = os.path.join(os.path.dirname(__file__), "static")
 if os.path.exists(static_dir):
     app.mount("/static", StaticFiles(directory=static_dir), name="static")
@@ -81,18 +89,22 @@ def auto_seed_knowledge_base():
     except Exception as e:
         print(f"[Startup Notice] Auto-ingest skipped: {e}")
 
-# --- 4. SEO EXTRAS: ROBOTS.TXT ---
+# --- RESOLVE SELENIUM FAVICON 404 BLOCKS ---
+
+
+@app.get("/favicon.ico", include_in_schema=False)
+def favicon_endpoint():
+    svg_icon = """<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='#3b82f6'><path d='M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z'/></svg>"""
+    return Response(content=svg_icon, media_type="image/svg+xml", headers={"Cache-Control": "public, max-age=86400"})
+
+# --- SEO: ROBOTS.TXT ---
 
 
 @app.get("/robots.txt", response_class=PlainTextResponse, tags=["SEO"])
 def robots_txt():
-    return (
-        "User-agent: *\n"
-        "Allow: /\n"
-        "Sitemap: https://multi-agent-autonomous-rag-engine.onrender.com/sitemap.xml\n"
-    )
+    return "User-agent: *\nAllow: /\nSitemap: https://multi-agent-autonomous-rag-engine.onrender.com/sitemap.xml\n"
 
-# --- 4. SEO EXTRAS: SITEMAP.XML ---
+# --- SEO: SITEMAP.XML ---
 
 
 @app.get("/sitemap.xml", tags=["SEO"])
@@ -112,7 +124,7 @@ def sitemap_xml():
 </urlset>"""
     return Response(content=xml_content, media_type="application/xml")
 
-# --- FRONTEND ROUTE WITH CSP HEADERS ---
+# --- ROOT FRONTEND ---
 
 
 @app.get("/", tags=["Frontend"])
@@ -120,15 +132,7 @@ def serve_frontend():
     index_file = os.path.join(static_dir, "index.html")
     if os.path.exists(index_file):
         response = FileResponse(index_file)
-        response.headers["Content-Security-Policy"] = (
-            "default-src 'self'; "
-            "script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; "
-            "style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; "
-            "font-src 'self' https://cdnjs.cloudflare.com; "
-            "img-src 'self' data: https:; "
-            "connect-src 'self'; "
-            "frame-ancestors 'none';"
-        )
+        response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains; preload"
         response.headers["Cache-Control"] = "public, max-age=3600"
         return response
     return {"message": "NexusAI API is running. Visit /docs for Swagger UI."}

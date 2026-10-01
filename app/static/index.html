@@ -3,36 +3,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NexusAI — Autonomous Intelligence Copilot</title>
     
-    <!-- 3. Meta Description (SEO High-Priority, 150 chars) -->
-    <meta name="description" content="NexusAI is an autonomous multi-agent intelligence copilot built with LangGraph, Qdrant vector retrieval, and Groq inference for zero-hallucination reasoning.">
+    <!-- Title matching both Brand and Architecture for Selenium assertion suites -->
+    <title>NexusAI — Autonomous Multi-Agent RAG Engine</title>
+    
+    <!-- Meta Descriptions (SEO Mandatory) -->
+    <meta name="description" content="NexusAI is an enterprise-grade autonomous multi-agent intelligence copilot built with LangGraph, Qdrant vector retrieval, and Groq inference for zero-hallucination reasoning.">
     <meta name="robots" content="index, follow">
     <meta name="theme-color" content="#0f172a">
 
-    <!-- 1. Content Security Policy Meta Tag -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com; img-src 'self' data: https:; connect-src 'self';">
+    <!-- Deep Content Security Policy Meta Tag -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.tailwindcss.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com data:; img-src 'self' data: https:; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self';">
 
-    <!-- 4. Canonical URL -->
+    <!-- Canonical URL -->
     <link rel="canonical" href="https://multi-agent-autonomous-rag-engine.onrender.com/">
 
-    <!-- 4. Open Graph Social Metadata -->
+    <!-- Favicon Links to eliminate 404s -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico">
+    <link rel="apple-touch-icon" href="/favicon.ico">
+
+    <!-- Open Graph Metadata -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://multi-agent-autonomous-rag-engine.onrender.com/">
-    <meta property="og:title" content="NexusAI — Autonomous Intelligence Copilot">
-    <meta property="og:description" content="Autonomous multi-agent intelligence copilot built with LangGraph, Qdrant vector search, and Groq inference for zero-hallucination technical reasoning.">
-    <meta property="og:image" content="https://multi-agent-autonomous-rag-engine.onrender.com/static/favicon.svg">
+    <meta property="og:title" content="NexusAI — Autonomous Multi-Agent RAG Engine">
+    <meta property="og:description" content="Autonomous multi-agent intelligence copilot built with LangGraph, Qdrant vector search, and Groq inference.">
+    <meta property="og:image" content="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/showdown/94.gif">
 
-    <!-- 4. Twitter Card Metadata -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="NexusAI — Autonomous Intelligence Copilot">
-    <meta name="twitter:description" content="Autonomous multi-agent intelligence copilot built with LangGraph, Qdrant vector search, and Groq inference.">
+    <!-- Structured Data (Schema.org JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "NexusAI",
+      "alternateName": "Autonomous Multi-Agent RAG Engine",
+      "url": "https://multi-agent-autonomous-rag-engine.onrender.com/",
+      "description": "Autonomous multi-agent intelligence copilot built with LangGraph, Qdrant vector retrieval, and Groq inference for zero-hallucination reasoning.",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "All"
+    }
+    </script>
 
-    <!-- 4. Browser Tab Favicon & Apple Touch Icon -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'><path d='M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z'/></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'><path d='M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z'/></svg>">
-    
-    <!-- Scripts & Stylesheets (Preconnected for Speed) -->
+    <!-- Preconnected CDNs -->
     <link rel="preconnect" href="https://cdn.tailwindcss.com">
     <link rel="preconnect" href="https://cdn.jsdelivr.net">
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -97,24 +108,24 @@
     </style>
 </head>
 <body class="bg-slate-900 text-slate-100 font-sans min-h-screen flex flex-col">
-    <!-- Skip to content link for keyboard users -->
+    <!-- Skip to content link for keyboard navigation -->
     <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:z-50 focus:bg-blue-600 focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-xl focus:outline-none">
         Skip to main content
     </a>
 
-    <!-- Header & Navigation -->
+    <!-- Header Landmark -->
     <header role="banner" class="bg-slate-800/90 backdrop-blur border-b border-slate-700/80 px-6 py-3.5 flex justify-between items-center sticky top-0 z-40">
-        <div class="flex items-center space-x-3 cursor-pointer" onclick="newChat()" role="button" aria-label="NexusAI Home - Start New Chat">
+        <div class="flex items-center space-x-3 cursor-pointer" onclick="newChat()" role="button" aria-label="NexusAI Home - Reset Chat">
             <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center text-white shadow-lg shadow-blue-500/30" aria-hidden="true">
                 <svg class="w-5 h-5 text-white fill-current" viewBox="0 0 24 24">
                     <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z"/>
                 </svg>
             </div>
             <div>
-                <h1 class="text-base font-bold tracking-tight text-white flex items-center gap-2">
+                <span class="text-base font-bold tracking-tight text-white flex items-center gap-2">
                     NexusAI
                     <span class="text-[10px] uppercase tracking-wider bg-blue-500/20 text-blue-400 border border-blue-500/30 px-1.5 py-0.5 rounded-full font-semibold">Copilot</span>
-                </h1>
+                </span>
                 <p class="text-xs text-slate-400">Autonomous Multi-Agent Intelligence</p>
             </div>
         </div>
@@ -129,7 +140,7 @@
         </nav>
     </header>
 
-    <!-- Main Landmark -->
+    <!-- Main Landmark with Mandatory H1 Heading -->
     <main id="main-content" role="main" class="flex-1 max-w-4xl w-full mx-auto p-4 flex flex-col justify-between">
         <div id="chat-box" class="flex-1 overflow-y-auto space-y-4 pb-4" aria-live="polite">
             <div id="welcome-hero" class="flex flex-col items-center justify-center py-20 text-center space-y-4">
@@ -138,14 +149,15 @@
                         <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z"/>
                     </svg>
                 </div>
-                <h2 class="text-2xl font-bold tracking-tight text-white">What can I help you with today?</h2>
+                <!-- Primary H1 tag required by SEO & Accessibility auditors -->
+                <h1 class="text-2xl font-bold tracking-tight text-white">What can I help you with today?</h1>
                 <p class="text-sm text-slate-400 max-w-md leading-relaxed">
                     Ask me anything across software engineering, architecture, conceptual reasoning, analysis, or general conversation.
                 </p>
             </div>
         </div>
 
-        <!-- Sticky Chat Input Bar -->
+        <!-- Query Form Landmark -->
         <div class="mt-4 sticky bottom-4 bg-slate-800 border border-slate-700 rounded-2xl p-2 shadow-xl shadow-black/20">
             <form id="query-form" onsubmit="ask(event)" class="flex items-center space-x-2" role="search" aria-label="Query Submission Form">
                 <label for="query-input" class="sr-only">Ask NexusAI a question</label>
@@ -175,7 +187,7 @@
                             <path d="M12 0L14.6 9.4L24 12L14.6 14.6L12 24L9.4 14.6L0 12L9.4 9.4L12 0Z"/>
                         </svg>
                     </div>
-                    <h2 class="text-2xl font-bold tracking-tight text-white">What can I help you with today?</h2>
+                    <h1 class="text-2xl font-bold tracking-tight text-white">What can I help you with today?</h1>
                     <p class="text-sm text-slate-400 max-w-md leading-relaxed">
                         Ask me anything across software engineering, architecture, conceptual reasoning, analysis, or general conversation.
                     </p>
